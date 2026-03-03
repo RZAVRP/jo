@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>untuk kamu · teman yang seru</title>
+  <!-- Google Fonts premium: Inter + Playfair Display -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..500&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <style>
+    /* RESET & GLOBAL */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      background: linear-gradient(145deg, #fbe9f5, #f3d9eb, #ead4f0, #dac9f0);
+      background-size: 400% 400%;
+      animation: gradientBG 18s ease infinite;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1.5rem;
+      opacity: 0;
+      animation: pageEntrance 1.6s cubic-bezier(0.2, 0.9, 0.3, 1) forwards, gradientBG 18s ease infinite;
+      position: relative;
+      line-height: 1.6;
+      color: #2b202f;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes pageEntrance {
+      0% { opacity: 0; backdrop-filter: blur(10px); }
+      100% { opacity: 1; backdrop-filter: blur(0); }
+    }
+
+    /* floating particles — bintang kecil yang berkelap-kelip */
+    .star {
+      position: fixed;
+      pointer-events: none;
+      z-index: 0;
+      background: white;
+      border-radius: 50%;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+      animation: twinkle 4s infinite alternate ease-in-out;
+    }
+
+    @keyframes twinkle {
+      0% { opacity: 0.1; transform: scale(0.8); }
+      100% { opacity: 0.7; transform: scale(1.3); }
+    }
+
+    /* floating cahaya besar (sama seperti sebelumnya tapi lebih banyak) */
+    .particle {
+      position: fixed;
+      pointer-events: none;
+      z-index: 0;
+      background: rgba(255, 240, 250, 0.2);
+      border-radius: 50%;
+      filter: blur(20px);
+      box-shadow: 0 0 50px rgba(255, 200, 230, 0.6);
+      animation: levitate 25s infinite alternate ease-in-out;
+    }
+
+    @keyframes levitate {
+      0% { transform: translate(0, 0) scale(1); opacity: 0.2; }
+      100% { transform: translate(40px, -50px) scale(1.5); opacity: 0.5; }
+    }
+
+    .container {
+      width: 100%;
+      max-width: 800px;
+      z-index: 20;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 90vh;
+    }
+
+    /* OPENING SECTION */
+    .opening {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+      width: 100%;
+    }
+
+    .typing-text {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 15vw, 5.2rem);
+      font-weight: 400;
+      color: #38253b;
+      letter-spacing: -0.02em;
+      margin-bottom: 2.5rem;
+      line-height: 1.1;
+      text-shadow: 0 4px 30px rgba(255, 220, 240, 0.9);
+    }
+
+    .btn-open {
+      background: rgba(255, 245, 250, 0.3);
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      border: 1.2px solid rgba(255, 255, 255, 0.6);
+      box-shadow: 0 20px 40px -10px rgba(140, 100, 130, 0.3);
+      padding: 1.2rem 4rem;
+      border-radius: 100px;
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: #3a2a40;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.3, 1);
+      border: 1px solid rgba(255, 240, 250, 0.7);
+      font-family: 'Inter', sans-serif;
+    }
+
+    .btn-open:hover {
+      background: rgba(255, 240, 250, 0.5);
+      transform: scale(1.03) translateY(-3px);
+      border-color: #ffe2f0;
+      box-shadow: 0 28px 40px -8px rgba(180, 120, 160, 0.4);
+    }
+
+    .btn-open:active {
+      transform: scale(0.98) translateY(0);
+    }
+
+    /* CARD UTAMA */
+    .main-card {
+      background: rgba(255, 250, 255, 0.18);
+      backdrop-filter: blur(20px) saturate(200%);
+      -webkit-backdrop-filter: blur(20px) saturate(200%);
+      border-radius: 48px;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      box-shadow: 0 30px 60px -20px rgba(90, 60, 80, 0.4), inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+      padding: 3rem 2.5rem;
+      width: 100%;
+      margin: 2rem 0 2rem;
+      transition: all 0.7s ease;
+      color: #2f1f34;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* foto */
+    .portrait-container {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 3rem;
+      width: 100%;
+    }
+
+    .portrait-frame {
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      padding: 6px;
+      background: linear-gradient(135deg, #ffffffb0, #ffffff30);
+      box-shadow: 0 30px 40px -15px rgba(130, 90, 120, 0.5);
+      backdrop-filter: blur(5px);
+      transition: transform 0.5s ease, box-shadow 0.4s ease;
+    }
+
+    .portrait-frame:hover {
+      transform: scale(1.02);
+      box-shadow: 0 35px 50px -15px rgba(150, 100, 140, 0.6);
+    }
+
+    .portrait-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(255, 255, 255, 0.7);
+      background: #f9e4ed;
+      display: block;
+    }
+
+    /* AREA TEKS ANIMASI (fade in-out bergantian) */
+    .message-slider {
+      width: 100%;
+      max-width: 600px;
+      min-height: 240px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      margin: 1rem 0 2rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.7rem;
+      line-height: 1.6;
+      color: #3a2a40;
+      position: relative;
+    }
+
+    .slide-text {
+      position: absolute;
+      width: 100%;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1s ease, transform 1s ease;
+      pointer-events: none;
+      font-weight: 400;
+      text-shadow: 0 2px 15px rgba(255, 240, 250, 0.7);
+    }
+
+    .slide-text.active {
+      opacity: 1;
+      transform: translateY(0);
+      position: relative;
+    }
+
+    .slide-text.smaller {
+      font-size: 1.5rem;
+    }
+
+    /* footer */
+    .footer-note {
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: #604e63;
+      background: rgba(255, 240, 250, 0.3);
+      backdrop-filter: blur(10px);
+      padding: 0.6rem 2.2rem;
+      border-radius: 60px;
+      border: 1px solid rgba(255, 240, 250, 0.7);
+      z-index: 22;
+    }
+
+    /* tombol musik */
+    .music-toggle {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      background: rgba(255, 245, 250, 0.35);
+      backdrop-filter: blur(18px);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      border-radius: 80px;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      cursor: pointer;
+      z-index: 100;
+      box-shadow: 0 10px 25px rgba(170, 120, 150, 0.2);
+      transition: 0.25s ease;
+      color: #4a3950;
+    }
+
+    .music-toggle:hover {
+      background: rgba(255, 230, 245, 0.7);
+      transform: scale(1.08);
+      border-color: #ffe2f0;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* responsive */
+    @media (max-width: 550px) {
+      body { padding: 1.2rem; }
+      .main-card { padding: 2rem 1.5rem; border-radius: 36px; }
+      .portrait-frame { width: 160px; height: 160px; }
+      .message-slider { font-size: 1.4rem; min-height: 220px; }
+      .slide-text.smaller { font-size: 1.3rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- star particles (banyak) -->
+  <div id="stars-container"></div>
+  <!-- floating light particles (besar) -->
+  <div id="particles-container"></div>
+
+  <!-- tombol musik manual -->
+  <div class="music-toggle" id="musicToggle">♫</div>
+
+  <div class="container">
+    <!-- opening dengan typing -->
+    <div id="openingSection" class="opening">
+      <div class="typing-text" id="typingTarget"></div>
+      <button class="btn-open" id="openLetterBtn">buka surat</button>
+    </div>
+
+    <!-- CARD UTAMA (setelah buka) -->
+    <div id="mainCard" class="main-card hidden">
+      <!-- foto portrait -->
+      <div class="portrait-container">
+        <div class="portrait-frame">
+          <img 
+            class="portrait-img" 
+            src="jo2.png"
+            alt="potret"
+          >
+        </div>
+      </div>
+
+      <!-- area teks bergantian (fade in-out) -->
+      <div class="message-slider" id="messageSlider">
+        <div class="slide-text active" id="msg1">Hai kamu.</div>
+        <div class="slide-text" id="msg2">Gatau kenapa, tapi ngobrol sama kamu tuh rasanya gampang banget. Kayak nggak perlu mikir harus jadi siapa.</div>
+        <div class="slide-text" id="msg3">Baru kenal sih, tapi aku bersyukur banget bisa ketemu orang yang bikin hari-hari jadi lebih seru.</div>
+        <div class="slide-text" id="msg4">Tenang aja, ini bukan surat aneh-aneh kok. Cuma pengen bilang: aku seneng punya kamu sebagai temen.</div>
+      </div>
+
+      <!-- garis kecil sebagai penutup -->
+      <div style="margin-top: 1rem; font-style: italic; color: #6b4e65; font-weight: 300;">☾</div>
+    </div>
+
+    <div class="footer-note">@ken</div>
+  </div>
+
+  <!-- audio bad.mp3 (otomatis nyala saat surat dibuka) -->
+  <audio id="bgMusic" loop preload="auto">
+    <source src="bad.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    (function() {
+      // 1. STARS (bintang kecil berkelap-kelip)
+      function createStars() {
+        const container = document.getElementById('stars-container');
+        const count = 60;
+        for (let i = 0; i < count; i++) {
+          const star = document.createElement('div');
+          star.className = 'star';
+          const size = Math.floor(Math.random() * 6) + 2; // 2-8px
+          star.style.width = size + 'px';
+          star.style.height = size + 'px';
+          star.style.left = Math.random() * 100 + '%';
+          star.style.top = Math.random() * 100 + '%';
+          star.style.animationDelay = (Math.random() * 5) + 's';
+          star.style.animationDuration = (Math.random() * 4 + 3) + 's'; // 3-7 detik
+          container.appendChild(star);
+        }
+      }
+
+      // 2. PARTICLES (cahaya besar)
+      function createParticles() {
+        const container = document.getElementById('particles-container');
+        const count = 10;
+        for (let i = 0; i < count; i++) {
+          const particle = document.createElement('div');
+          particle.className = 'particle';
+          const size = Math.floor(Math.random() * 300) + 100; // 100-400px
+          particle.style.width = size + 'px';
+          particle.style.height = size + 'px';
+          particle.style.left = Math.random() * 100 + '%';
+          particle.style.top = Math.random() * 100 + '%';
+          particle.style.animationDuration = (Math.random() * 20 + 20) + 's';
+          particle.style.animationDelay = (Math.random() * 10) + 's';
+          particle.style.background = `radial-gradient(circle at 30% 30%, rgba(255,210,240,0.3), rgba(220,190,230,0.1))`;
+          container.appendChild(particle);
+        }
+      }
+      
+      createStars();
+      createParticles();
+
+      // 3. TYPING
+      const typingEl = document.getElementById('typingTarget');
+      const openingSection = document.getElementById('openingSection');
+      const mainCard = document.getElementById('mainCard');
+      const openBtn = document.getElementById('openLetterBtn');
+      
+      const fullText = "Hai kamu…";
+      let index = 0;
+
+      function typeNext() {
+        if (index < fullText.length) {
+          typingEl.textContent += fullText.charAt(index);
+          index++;
+          setTimeout(typeNext, 110);
+        }
+      }
+      setTimeout(typeNext, 400);
+
+      // 4. MUSIC SETUP
+      const music = document.getElementById('bgMusic');
+      const toggleBtn = document.getElementById('musicToggle');
+      let musicPlaying = false;
+      music.volume = 0.2;
+
+      function playMusic() {
+        music.play().then(() => {
+          musicPlaying = true;
+          toggleBtn.textContent = '⏸︎';
+        }).catch(err => {
+          console.log('Gagal putar musik:', err);
+          alert('File bad.mp3 tidak ditemukan. Pastikan file ada di folder yang sama.');
+          musicPlaying = false;
+          toggleBtn.textContent = '♫';
+        });
+      }
+
+      function pauseMusic() {
+        music.pause();
+        musicPlaying = false;
+        toggleBtn.textContent = '♫';
+      }
+
+      // 5. BUKA CARD + MUSIC OTOMATIS + START SLIDER
+      let sliderInterval = null;
+
+      openBtn.addEventListener('click', function() {
+        // fade out opening
+        openingSection.style.opacity = '0';
+        openingSection.style.visibility = 'hidden';
+        
+        setTimeout(() => {
+          openingSection.classList.add('hidden');
+          mainCard.classList.remove('hidden');
+          
+          // efek subtle
+          mainCard.style.transform = 'scale(0.98)';
+          setTimeout(() => { mainCard.style.transform = 'scale(1)'; }, 50);
+          
+          // scroll ke card
+          mainCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+          // MUSIK OTOMATIS
+          if (!musicPlaying) {
+            playMusic();
+          }
+
+          // MULAI SLIDER TEKS
+          startMessageSlider();
+
+        }, 600);
+      });
+
+      // 6. FUNGSI SLIDER
+      function startMessageSlider() {
+        const messages = [
+          document.getElementById('msg1'),
+          document.getElementById('msg2'),
+          document.getElementById('msg3'),
+          document.getElementById('msg4')
+        ];
+        let currentIndex = 0;
+
+        messages.forEach((msg, i) => {
+          if (i === 0) msg.classList.add('active');
+          else msg.classList.remove('active');
+        });
+
+        if (sliderInterval) clearInterval(sliderInterval);
+
+        sliderInterval = setInterval(() => {
+          messages[currentIndex].classList.remove('active');
+          currentIndex = (currentIndex + 1) % messages.length;
+          messages[currentIndex].classList.add('active');
+        }, 4500); // ganti setiap 4.5 detik
+      }
+
+      // 7. MANUAL MUSIC TOGGLE
+      toggleBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        if (musicPlaying) {
+          pauseMusic();
+        } else {
+          playMusic();
+        }
+      });
+
+      // 8. Error handling file bad.mp3
+      music.addEventListener('error', function() {
+        console.log('File bad.mp3 tidak bisa dimuat');
+      });
+
+      music.load();
+
+      // 9. Klik foto efek
+      const frame = document.querySelector('.portrait-frame');
+      if(frame) {
+        frame.addEventListener('click', function() {
+          this.style.transform = 'scale(1.03)';
+          setTimeout(() => this.style.transform = '', 200);
+        });
+      }
+
+    })();
+  </script>
+</body>
+</html>
